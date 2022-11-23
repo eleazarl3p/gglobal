@@ -12,6 +12,7 @@ import '/screens/all_flight_on_actual_stair.dart';
 import '../models/Projects.dart';
 import '../models/stair.dart';
 
+import 'package:intl/intl.dart';
 class StairOnCurrentProject extends StatefulWidget {
   StairOnCurrentProject({Key? key, required this.pIndex,this.cloud = false}) : super(key: key);
 
@@ -220,10 +221,12 @@ class _StairOnCurrentProjectState extends State<StairOnCurrentProject> {
                                       // for (Stair st in currentProject.stairs) {
                                       //   createFile(st.toJson(), st.id);
                                       // }
-                                      for (Stair st in currentProject.stairs) {
-                                        print(st.toJson());
-                                      }
-                                      //FBDB.update(collection: 'projects', document: currentProject.id, data: data);
+
+
+                                      //String fecha = DateFormat("yyyy-MM-dd").format(DateTime.now());
+                                      FBDB.update(collection: 'projects', document: currentProject.id, data: {'data': currentProject.toJson()});
+
+                                      FBDB.create('log', DateTime.now().toString(), {"user": 1, 'action': 'update', 'project': currentProject.id});
                                     },
                                     icon: const Icon(Icons.update),
                                     label: const Text("Update"),
@@ -231,72 +234,7 @@ class _StairOnCurrentProjectState extends State<StairOnCurrentProject> {
                                 )
                               ],
 
-                              // SizedBox(
-                              //   width: 200,
-                              //   child: ElevatedButton.icon(
-                              //       onPressed: () {
-                              //         //
-                              //         // print(currentProject);
-                              //         print(jsonEncode(currentProject));
-                              //         // final tempProjects =
-                              //         // Provider.of<TemporaryProjectsProvider>(context,
-                              //         //     listen: false);
-                              //         // final curentProject = Provider.of<ProjectProvider>(
-                              //         //     context,
-                              //         //     listen: false);
-                              //         // Proyecto newProject =
-                              //         // Proyecto(name: curentProject.name);
-                              //         // newProject.stairsList = [
-                              //         //   ...currentProject.stairsList
-                              //         // ];
-                              //         // tempProjects.addProject(newProject);
-                              //         // Navigator.pop(context);
-                              //         //   ProjectProvider proj = Provider.of<ProjectProvider>(
-                              //         //       context,
-                              //         //       listen: false);
-                              //         //
-                              //         //
-                              //         //   var jsonData = proj.toJson();
-                              //         //   DB.create('projects', proj.name, {'data': jsonData});
-                              //       },
-                              //       icon: const Icon(Icons.save),
-                              //       label: const Text('Save *')),
-                              // ),
-                              // const SizedBox(
-                              //   height: 20.0,
-                              // ),
-                              // SizedBox(
-                              //   width: 200,
-                              //   child: ElevatedButton.icon(
-                              //       onPressed: () {
-                              //         // final tempProjects =
-                              //         // Provider.of<TemporaryProjectsProvider>(context,
-                              //         //     listen: false);
-                              //         // final curentProject = Provider.of<ProjectProvider>(
-                              //         //     context,
-                              //         //     listen: false);
-                              //         // Proyecto newProject =
-                              //         // Proyecto(name: curentProject.name);
-                              //         // newProject.stairsList = [
-                              //         //   ...currentProject.stairsList
-                              //         // ];
-                              //         // tempProjects.addProject(newProject);
-                              //         // Navigator.pop(context);
-                              //         // ProjectProvider proj =
-                              //         // Provider.of<ProjectProvider>(context,
-                              //         //     listen: false);
-                              //         //
-                              //         // for (var element in tempProjects) {
-                              //         //   DB.create('projects', element.name,
-                              //         //       {'data': element.toJson()});
-                              //         // }
-                              //
-                              //         // var jsonData = proj.toJson();
-                              //         // DB.create('projects', proj.name, {'data': jsonData});
-                              //       },
-                              //       icon: const Icon(Icons.send),
-                              //       label: const Text('Export  *')),
-                              // ),
+
                             ],
                           ),
                         ),
